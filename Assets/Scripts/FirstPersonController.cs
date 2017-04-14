@@ -10,6 +10,7 @@ public class FirstPersonController : MonoBehaviour {
 	
 	float verticalRotation = 0;
 	public float upDownRange = 60.0f;
+    public Camera cam;
 	
 	float verticalVelocity = 0;
 	
@@ -17,7 +18,7 @@ public class FirstPersonController : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		Screen.lockCursor = true;
+		Cursor.lockState = CursorLockMode.Locked;
 		characterController = GetComponent<CharacterController>();
 	}
 	
@@ -31,7 +32,7 @@ public class FirstPersonController : MonoBehaviour {
 		
 		verticalRotation -= Input.GetAxis("Mouse Y") * mouseSensitivity;
 		verticalRotation = Mathf.Clamp(verticalRotation, -upDownRange, upDownRange);
-		Camera.main.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+		cam.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
 		
 
 		// Movement
