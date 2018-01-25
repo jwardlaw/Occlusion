@@ -7,6 +7,7 @@ public class Gun : MonoBehaviour
     public float weaponRange = 50f;                                     // Distance in Unity units over which the player can fire
     public Transform gunEnd;                                            // Holds a reference to the gun end object, marking the muzzle location of the gun
     public float fireRate = 0.25f;
+    public GameObject rocket;
     
     public AudioSource gunAudio;                                       // Reference to the audio source which will play our shooting sound effect
     public LineRenderer laserLine;                                     // Reference to the LineRenderer component which will display our laserline
@@ -14,6 +15,7 @@ public class Gun : MonoBehaviour
     public float laserActive = 0.07f;
     public WaitForSeconds shotDuration;
     public float nextFire;
+    public float nextRocketFire;
 
 
     void Start()
@@ -68,6 +70,12 @@ public class Gun : MonoBehaviour
                 // If we did not hit anything, set the end of the line to a position directly in front of the camera at the distance of weaponRange
                 laserLine.SetPosition(1, rayOrigin + (fpsCamera.transform.forward * weaponRange));
             }
+        }
+        if(Input.GetButton("Fire2") && Time.time > nextRocketFire)
+        {
+            nextRocketFire = Time.time + 4 * fireRate;
+
+            GameObject.Instantiate(rocket, fpsCamera.transform.position + 3 * fpsCamera.transform.forward, fpsCamera.transform.rotation);
         }
     }
 
